@@ -21,6 +21,7 @@
     background-color: #4826b9;
     width: 100%;
     transition: all 0.3s ease-out;
+    border-radius: 12px;
   }
   
   .chart-bar__label {

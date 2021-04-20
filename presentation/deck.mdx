@@ -1,0 +1,214 @@
+import {
+  CodeSurfer,
+  CodeSurferColumns,
+  Step,
+} from "code-surfer";
+import { github, vsDark } from "@code-surfer/themes";
+
+export const theme = vsDark;
+
+<img style={{ height: '50vh' }} src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/1200px-React-icon.svg.png" />
+
+# React fundamentals
+
+---
+
+### Component-based JavaScript library that renders UI smartly
+
+---
+
+<CodeSurfer>
+
+```html title="UI state can become difficult to track with Vanilla JS" file=./code/vainilla-js-example.html
+```
+
+```diff 11,13,15[50:60],17 subtitle="Usually, state is implicitly attached to the DOM"
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns sizes={[1,1.7]}>
+
+<Step title="With React, define the desired state and let it take care of the DOM">
+
+```html file=./code/vainilla-js-example.html
+```
+
+```jsx file=./code/react-example.js
+```
+
+</Step>
+
+<Step title="More declarative code and focus on UI logic">
+
+```html 13:15 file=./code/vainilla-js-example.html
+```
+
+```jsx 2:9 file=./code/react-example.js
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+## Components 🧱
+
+---
+
+### Reusable and isolated piece of UI
+
+---
+
+<CodeSurfer>
+
+```jsx title="Component" file=./code/components.js
+```
+
+```diff 2 title="Component" subtitle="It can have a state"
+```
+
+```diff 1[19:30] title="Component" subtitle="It can receive props from parent components"
+```
+
+```diff 8[29:69] title="Component" subtitle="It can communicate with child components"
+```
+
+```diff 1[19:30],2[18:24],8[59:68] title="Component" subtitle="It will be executed when props or state changes"
+```
+
+```diff title="Component" subtitle="Avoid huge files and complex code"
+```
+
+```diff 7,11 title="Component" subtitle="Reusability"
+```
+
+```diff 8:10 title="Component" subtitle="Separation of concerns"
+```
+
+</CodeSurfer>
+
+---
+
+<CodeSurferColumns sizes={[1,1.2]}>
+
+<Step title="Stateful & Stateless components">
+
+```jsx file=./code/stateful.js
+```
+
+```jsx file=./code/stateless.js
+```
+
+</Step>
+
+<Step title="Stateful & Stateless components">
+
+```jsx 2:6,11[21:39] file=./code/stateful.js
+```
+
+```jsx 1[23:34],2[9:24],8[14:21] file=./code/stateless.js
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+## Hooks
+
+---
+
+### They let to use React features without writing a class
+
+---
+
+<CodeSurferColumns sizes={[1,0.7]}>
+
+<Step title="useState()">
+
+```jsx file=./code/old-state.js
+```
+
+```jsx file=./code/new-state.js
+```
+
+</Step>
+
+<Step title="useState()">
+
+```jsx 1,5:7,14[34:79] file=./code/old-state.js
+```
+
+```jsx 1:2,7[30:48] file=./code/new-state.js
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+<CodeSurferColumns sizes={[1,1]}>
+
+<Step title="useEffect()">
+
+```jsx file=./code/old-effect.js
+```
+
+```jsx file=./code/new-effect.js
+```
+
+</Step>
+
+<Step title="useEffect()" subtitle="You tell React that your component needs to do something after render and/or before being destroyed">
+
+```jsx 9:19 file=./code/old-effect.js
+```
+
+```jsx 4:10 file=./code/new-effect.js
+```
+
+</Step>
+
+<Step title="useEffect()" subtitle="We might want to trigger an effect only if certain state changes">
+
+```jsx
+componentDidUpdate(prevProps, prevState) {
+  if (prevState.count !== this.state.count) {
+    console.log(`You clicked ${this.state.count} times`);
+  }
+}
+```
+
+```jsx
+useEffect(() => {
+  console.log(`You clicked ${count} times`);
+}, [count]); // Only re-run the effect if count changes
+```
+
+</Step>
+
+</CodeSurferColumns>
+
+---
+
+### Ecosystem 🤝
+
+---
+
+<div>
+  <div style="margin-bottom: 2em;display: flex;align-items: center;">
+    <img style={{ height: '15vh' }} src="https://visual-engin.com/wp-content/uploads/sites/3/2016/07/1_TKvlTeNqtkp1s-eVB5Hrvg@2x.png" />
+    <img style={{ height: '18vh' }} src="https://carlosazaustre.es/static/a25a3393f1c068efbdde267602a26100/39600/logo_redux.png" />
+    <img style={{ height: '12vh' }} src="https://react-query.tanstack.com/_next/static/images/logo-a65f848e05592e7de1dc2150454230fa.svg" />
+  </div>
+  <div style="display: flex;align-items: center;justify-content: space-evenly;">
+    <img style={{ height: '9vh' }} src="https://raw.githubusercontent.com/chakra-ui/chakra-ui/main/logo/logo-colored@2x.png?raw=true" />
+    <img style={{ height: '20vh' }} src="https://miro.medium.com/max/800/1*mUISLg4ghf6QYT_f1-cnlg.png" />
+  </div>
+</div>
