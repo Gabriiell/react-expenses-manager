@@ -1,23 +1,58 @@
-import { useState } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import ErrorModal from './ErrorModal';
 import './ExpenseForm.css';
 
+const expenseReducer = (expense, { type, payload }) => {
+    switch (type) {
+        case 'updateTitle':
+            return {
+                ...expense,
+                title: payload
+            };
+        case 'updateAmount':
+            return {
+                ...expense,
+                amount: payload
+            };
+        case 'updateDate':
+            return {
+                ...expense,
+                date: payload
+            };
+        case 'reset':
+            return {
+                title: '',
+                amount: '',
+                date: ''
+            };
+        default:
+            throw new Error(`${type} is not a valid type for expenseReducer action`);
+    }
+};
+
 const ExpenseForm = ({ onSaveExpense }) => {
-    const [title, setTitle] = useState('');
-    const [amount, setAmount] = useState('');
-    const [date, setDate] = useState('');
+    const [expense, dispatchExpense] = useReducer(expenseReducer, {
+        title: '',
+        amount: '',
+        date: ''
+    });
+
     const [error, setError] = useState(null);
 
+    const { title, amount, date } = expense;
+
+    useEffect(() => console.log('RENDER'));
+
     const titleChangeHandler = event => {
-        setTitle(event.target.value);
+        dispatchExpense({ type: 'updateTitle', payload: event.target.value });
     };
 
     const amountChangeHandler = event => {
-        setAmount(event.target.value);
+        dispatchExpense({ type: 'updateAmount', payload: event.target.value });
     };
 
     const dateChangeHandler = event => {
-        setDate(event.target.value);
+        dispatchExpense({ type: 'updateDate', payload: event.target.value });
     };
 
     const submitHandler = event => {
@@ -49,7 +84,7 @@ const ExpenseForm = ({ onSaveExpense }) => {
 
             return;
         }
-        
+
         if (!date) {
             setError({
                 title: 'Invalid date',
@@ -59,20 +94,16 @@ const ExpenseForm = ({ onSaveExpense }) => {
             return;
         }
 
-        const expense = {
-            id: Math.random().toString(),
-            title,
-            amount: +amount,
-            date: new Date(date)
-        };
-
         if (onSaveExpense) {
-            onSaveExpense(expense);
+            onSaveExpense({
+                id: Math.random().toString(),
+                title,
+                amount: +amount,
+                date: new Date(date)
+            });
         }
 
-        setTitle('');
-        setAmount('');
-        setDate('');
+        dispatchExpense({ type: 'reset' });
     };
 
     return (
